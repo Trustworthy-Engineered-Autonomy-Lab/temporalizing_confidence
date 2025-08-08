@@ -1,0 +1,678 @@
+{
+  "A": {
+    "prompt": "Q: Let A = {x \u2208 \u211d | |x| \u2264 2}, B = {x \u2208 \u2124 | \u221ax \u2264 4}. Then A \u2229 B = ?\nA. (0,2)\nAnswer with only one word: True or False.\nAnswer:",
+    "response": "False\n",
+    "logits": {
+      "False": 43.75
+    },
+    "token_level_logits": [
+      {
+        "token": "False",
+        "top_logits": [
+          {
+            "token": "False",
+            "logit": 43.75
+          },
+          {
+            "token": "True",
+            "logit": 33.0
+          },
+          {
+            "token": "A",
+            "logit": 27.5
+          },
+          {
+            "token": "\u2581False",
+            "logit": 27.25
+          },
+          {
+            "token": "**",
+            "logit": 26.75
+          }
+        ]
+      },
+      {
+        "token": "\n",
+        "top_logits": [
+          {
+            "token": "\n",
+            "logit": 30.0
+          },
+          {
+            "token": "<end_of_turn>",
+            "logit": 28.125
+          },
+          {
+            "token": ".",
+            "logit": 23.0
+          },
+          {
+            "token": "\u2581",
+            "logit": 18.75
+          },
+          {
+            "token": "}",
+            "logit": 18.25
+          }
+        ]
+      },
+      {
+        "token": "<end_of_turn>",
+        "top_logits": [
+          {
+            "token": "<end_of_turn>",
+            "logit": 36.75
+          },
+          {
+            "token": "Answer",
+            "logit": 19.375
+          },
+          {
+            "token": "</",
+            "logit": 16.5
+          },
+          {
+            "token": "ANSWER",
+            "logit": 15.9375
+          },
+          {
+            "token": "True",
+            "logit": 15.0
+          }
+        ]
+      }
+    ],
+    "raw": {
+      "response": "False\n",
+      "elapsed_time": 2.35,
+      "input_tokens": 76,
+      "output_tokens": 3,
+      "tokens_per_second": 1.28,
+      "logprob": -0.161,
+      "token_level_logits": [
+        {
+          "token": "False",
+          "top_logits": [
+            {
+              "token": "False",
+              "logit": 43.75
+            },
+            {
+              "token": "True",
+              "logit": 33.0
+            },
+            {
+              "token": "A",
+              "logit": 27.5
+            },
+            {
+              "token": "\u2581False",
+              "logit": 27.25
+            },
+            {
+              "token": "**",
+              "logit": 26.75
+            }
+          ]
+        },
+        {
+          "token": "\n",
+          "top_logits": [
+            {
+              "token": "\n",
+              "logit": 30.0
+            },
+            {
+              "token": "<end_of_turn>",
+              "logit": 28.125
+            },
+            {
+              "token": ".",
+              "logit": 23.0
+            },
+            {
+              "token": "\u2581",
+              "logit": 18.75
+            },
+            {
+              "token": "}",
+              "logit": 18.25
+            }
+          ]
+        },
+        {
+          "token": "<end_of_turn>",
+          "top_logits": [
+            {
+              "token": "<end_of_turn>",
+              "logit": 36.75
+            },
+            {
+              "token": "Answer",
+              "logit": 19.375
+            },
+            {
+              "token": "</",
+              "logit": 16.5
+            },
+            {
+              "token": "ANSWER",
+              "logit": 15.9375
+            },
+            {
+              "token": "True",
+              "logit": 15.0
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "B": {
+    "prompt": "Q: Let A = {x \u2208 \u211d | |x| \u2264 2}, B = {x \u2208 \u2124 | \u221ax \u2264 4}. Then A \u2229 B = ?\nB. [0,2]\nAnswer with only one word: True or False.\nAnswer:",
+    "response": "False\n",
+    "logits": {
+      "False": 42.5
+    },
+    "token_level_logits": [
+      {
+        "token": "False",
+        "top_logits": [
+          {
+            "token": "False",
+            "logit": 42.5
+          },
+          {
+            "token": "True",
+            "logit": 35.25
+          },
+          {
+            "token": "**",
+            "logit": 28.0
+          },
+          {
+            "token": "\u2581False",
+            "logit": 26.75
+          },
+          {
+            "token": "A",
+            "logit": 26.25
+          }
+        ]
+      },
+      {
+        "token": "\n",
+        "top_logits": [
+          {
+            "token": "\n",
+            "logit": 29.5
+          },
+          {
+            "token": "<end_of_turn>",
+            "logit": 26.5
+          },
+          {
+            "token": ".",
+            "logit": 20.75
+          },
+          {
+            "token": "\u2581",
+            "logit": 18.625
+          },
+          {
+            "token": "\n\n",
+            "logit": 17.25
+          }
+        ]
+      },
+      {
+        "token": "<end_of_turn>",
+        "top_logits": [
+          {
+            "token": "<end_of_turn>",
+            "logit": 36.25
+          },
+          {
+            "token": "Answer",
+            "logit": 19.625
+          },
+          {
+            "token": "</",
+            "logit": 16.375
+          },
+          {
+            "token": "ANSWER",
+            "logit": 15.8125
+          },
+          {
+            "token": "True",
+            "logit": 15.5
+          }
+        ]
+      }
+    ],
+    "raw": {
+      "response": "False\n",
+      "elapsed_time": 2.25,
+      "input_tokens": 76,
+      "output_tokens": 3,
+      "tokens_per_second": 1.33,
+      "logprob": -0.0494,
+      "token_level_logits": [
+        {
+          "token": "False",
+          "top_logits": [
+            {
+              "token": "False",
+              "logit": 42.5
+            },
+            {
+              "token": "True",
+              "logit": 35.25
+            },
+            {
+              "token": "**",
+              "logit": 28.0
+            },
+            {
+              "token": "\u2581False",
+              "logit": 26.75
+            },
+            {
+              "token": "A",
+              "logit": 26.25
+            }
+          ]
+        },
+        {
+          "token": "\n",
+          "top_logits": [
+            {
+              "token": "\n",
+              "logit": 29.5
+            },
+            {
+              "token": "<end_of_turn>",
+              "logit": 26.5
+            },
+            {
+              "token": ".",
+              "logit": 20.75
+            },
+            {
+              "token": "\u2581",
+              "logit": 18.625
+            },
+            {
+              "token": "\n\n",
+              "logit": 17.25
+            }
+          ]
+        },
+        {
+          "token": "<end_of_turn>",
+          "top_logits": [
+            {
+              "token": "<end_of_turn>",
+              "logit": 36.25
+            },
+            {
+              "token": "Answer",
+              "logit": 19.625
+            },
+            {
+              "token": "</",
+              "logit": 16.375
+            },
+            {
+              "token": "ANSWER",
+              "logit": 15.8125
+            },
+            {
+              "token": "True",
+              "logit": 15.5
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "C": {
+    "prompt": "Q: Let A = {x \u2208 \u211d | |x| \u2264 2}, B = {x \u2208 \u2124 | \u221ax \u2264 4}. Then A \u2229 B = ?\nC. {0,2}\nAnswer with only one word: True or False.\nAnswer:",
+    "response": "False\n",
+    "logits": {
+      "False": 45.0
+    },
+    "token_level_logits": [
+      {
+        "token": "False",
+        "top_logits": [
+          {
+            "token": "False",
+            "logit": 45.0
+          },
+          {
+            "token": "True",
+            "logit": 37.5
+          },
+          {
+            "token": "\u2581False",
+            "logit": 28.25
+          },
+          {
+            "token": "**",
+            "logit": 28.0
+          },
+          {
+            "token": "<0xC2>",
+            "logit": 26.5
+          }
+        ]
+      },
+      {
+        "token": "\n",
+        "top_logits": [
+          {
+            "token": "\n",
+            "logit": 28.875
+          },
+          {
+            "token": "<end_of_turn>",
+            "logit": 26.5
+          },
+          {
+            "token": ".",
+            "logit": 20.5
+          },
+          {
+            "token": "\u2581",
+            "logit": 17.75
+          },
+          {
+            "token": "\n\n",
+            "logit": 16.375
+          }
+        ]
+      },
+      {
+        "token": "<end_of_turn>",
+        "top_logits": [
+          {
+            "token": "<end_of_turn>",
+            "logit": 36.75
+          },
+          {
+            "token": "Answer",
+            "logit": 19.125
+          },
+          {
+            "token": "</",
+            "logit": 16.0
+          },
+          {
+            "token": "ANSWER",
+            "logit": 15.6875
+          },
+          {
+            "token": "True",
+            "logit": 15.5625
+          }
+        ]
+      }
+    ],
+    "raw": {
+      "response": "False\n",
+      "elapsed_time": 2.25,
+      "input_tokens": 76,
+      "output_tokens": 3,
+      "tokens_per_second": 1.33,
+      "logprob": -0.1137,
+      "token_level_logits": [
+        {
+          "token": "False",
+          "top_logits": [
+            {
+              "token": "False",
+              "logit": 45.0
+            },
+            {
+              "token": "True",
+              "logit": 37.5
+            },
+            {
+              "token": "\u2581False",
+              "logit": 28.25
+            },
+            {
+              "token": "**",
+              "logit": 28.0
+            },
+            {
+              "token": "<0xC2>",
+              "logit": 26.5
+            }
+          ]
+        },
+        {
+          "token": "\n",
+          "top_logits": [
+            {
+              "token": "\n",
+              "logit": 28.875
+            },
+            {
+              "token": "<end_of_turn>",
+              "logit": 26.5
+            },
+            {
+              "token": ".",
+              "logit": 20.5
+            },
+            {
+              "token": "\u2581",
+              "logit": 17.75
+            },
+            {
+              "token": "\n\n",
+              "logit": 16.375
+            }
+          ]
+        },
+        {
+          "token": "<end_of_turn>",
+          "top_logits": [
+            {
+              "token": "<end_of_turn>",
+              "logit": 36.75
+            },
+            {
+              "token": "Answer",
+              "logit": 19.125
+            },
+            {
+              "token": "</",
+              "logit": 16.0
+            },
+            {
+              "token": "ANSWER",
+              "logit": 15.6875
+            },
+            {
+              "token": "True",
+              "logit": 15.5625
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "D": {
+    "prompt": "Q: Let A = {x \u2208 \u211d | |x| \u2264 2}, B = {x \u2208 \u2124 | \u221ax \u2264 4}. Then A \u2229 B = ?\nD. {0,1,2}\nAnswer with only one word: True or False.\nAnswer:",
+    "response": "False\n",
+    "logits": {
+      "False": 50.0
+    },
+    "token_level_logits": [
+      {
+        "token": "False",
+        "top_logits": [
+          {
+            "token": "False",
+            "logit": 50.0
+          },
+          {
+            "token": "True",
+            "logit": 43.25
+          },
+          {
+            "token": "\u2581False",
+            "logit": 31.875
+          },
+          {
+            "token": "**",
+            "logit": 31.625
+          },
+          {
+            "token": "D",
+            "logit": 30.5
+          }
+        ]
+      },
+      {
+        "token": "\n",
+        "top_logits": [
+          {
+            "token": "\n",
+            "logit": 28.75
+          },
+          {
+            "token": "<end_of_turn>",
+            "logit": 26.25
+          },
+          {
+            "token": ".",
+            "logit": 20.25
+          },
+          {
+            "token": "\u2581",
+            "logit": 17.0
+          },
+          {
+            "token": "\n\n",
+            "logit": 16.125
+          }
+        ]
+      },
+      {
+        "token": "<end_of_turn>",
+        "top_logits": [
+          {
+            "token": "<end_of_turn>",
+            "logit": 37.25
+          },
+          {
+            "token": "Answer",
+            "logit": 18.875
+          },
+          {
+            "token": "ANSWER",
+            "logit": 16.25
+          },
+          {
+            "token": "</",
+            "logit": 16.25
+          },
+          {
+            "token": "True",
+            "logit": 16.0
+          }
+        ]
+      }
+    ],
+    "raw": {
+      "response": "False\n",
+      "elapsed_time": 2.27,
+      "input_tokens": 78,
+      "output_tokens": 3,
+      "tokens_per_second": 1.32,
+      "logprob": -0.0713,
+      "token_level_logits": [
+        {
+          "token": "False",
+          "top_logits": [
+            {
+              "token": "False",
+              "logit": 50.0
+            },
+            {
+              "token": "True",
+              "logit": 43.25
+            },
+            {
+              "token": "\u2581False",
+              "logit": 31.875
+            },
+            {
+              "token": "**",
+              "logit": 31.625
+            },
+            {
+              "token": "D",
+              "logit": 30.5
+            }
+          ]
+        },
+        {
+          "token": "\n",
+          "top_logits": [
+            {
+              "token": "\n",
+              "logit": 28.75
+            },
+            {
+              "token": "<end_of_turn>",
+              "logit": 26.25
+            },
+            {
+              "token": ".",
+              "logit": 20.25
+            },
+            {
+              "token": "\u2581",
+              "logit": 17.0
+            },
+            {
+              "token": "\n\n",
+              "logit": 16.125
+            }
+          ]
+        },
+        {
+          "token": "<end_of_turn>",
+          "top_logits": [
+            {
+              "token": "<end_of_turn>",
+              "logit": 37.25
+            },
+            {
+              "token": "Answer",
+              "logit": 18.875
+            },
+            {
+              "token": "ANSWER",
+              "logit": 16.25
+            },
+            {
+              "token": "</",
+              "logit": 16.25
+            },
+            {
+              "token": "True",
+              "logit": 16.0
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

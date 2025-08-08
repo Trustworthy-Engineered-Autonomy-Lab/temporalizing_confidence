@@ -1,0 +1,5 @@
+{"input": "Q: What is the capital of France?\nA: Paris", "label": 1}
+{"input": "Q: What is 8 * 7?\nA: 56", "label": 1}
+{"input": "Q: Who discovered America?\nA: Elon Musk", "label": 0}
+{"input": "Q: What is the square root of 25?\nA: 6", "label": 0}
+{"input": "Q: What gas do humans need to breathe?\nA: Oxygen", "label": 1}
