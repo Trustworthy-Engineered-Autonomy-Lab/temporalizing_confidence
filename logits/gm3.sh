@@ -15,6 +15,7 @@ module load conda
 conda activate tea
 
 export HF_HOME=/blue/iruchkin/YOUR_USERNAME/.cache/huggingface # modify this to your own username
+export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
 
 python -u -m uvicorn gemma3:app --host 0.0.0.0 --port 8000 --workers 1 --timeout-keep-alive 120
 
