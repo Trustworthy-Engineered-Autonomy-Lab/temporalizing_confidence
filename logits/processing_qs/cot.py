@@ -1,11 +1,29 @@
 import json
 import requests
-import json
 import time
-from logits import call_api
+import re
+import argparse
+import os
+
+# === Parse command line arguments ===
+parser = argparse.ArgumentParser(description='Run CoT evaluation with configurable output path')
+parser.add_argument('--output', '-o', type=str, default='CoT_full_results_task2.json', 
+                   help='Output file path for results (default: CoT_full_results_task2.json)')
+args = parser.parse_args()
+
 # === API endpoint ===
 API_URL = "http://localhost:8000/chat"
 
+def call_api(prompt):
+    payload = {"user_message": prompt}
+    try:
+        response = requests.post(API_URL, json=payload)
+        response.raise_for_status()
+        return response.json()
+    except requests.RequestException as e:
+        print(f"[ERROR] API call failed: {e}")
+        return None
+    
 def task2_true_false_with_context():
     print("=== Task 2: Evaluate Each Option with Full Context, Expect True/False Only ===")
     results = {}
@@ -34,16 +52,18 @@ def task2_true_false_with_context():
             entry["token_level_logits"] = result.get("token_level_logits", [])
 
             # Extract logits of True / False (from token-level logits)
+            def normalize(tok):
+               return re.sub(r"^[^A-Za-z]*|[^A-Za-z]*$", "", tok).strip()
 
             for step in reversed(entry["token_level_logits"]):
                     tok = step.get("token", "")
-                    if tok in ["True", "False"]:
-                        i+=1
+                    if normalize(tok).upper() in ["TRUE", "FALSE"]:
                         for top in step.get("top_logits", []):
-                            if top["token"] == tok:
-                                entry["logits"][tok] = top["logit"]
-                            break
-                    break
+                            if normalize(top["token"]).upper() == normalize(tok).upper():
+                                entry["logits"][normalize(tok).upper()] = top["logit"]
+                                break
+                        break
+                    
 
         results[key] = entry
         
@@ -79,7 +99,7 @@ for item in original_dataset:
     task2_true_false_with_context()
 
 
-with open("CoT_full_results_task2.json", "w") as f: #Change name to match model
+with open(args.output, "w") as f:
     json.dump(full_results, f, indent=2)
 
-print("\n✅ Saved to full_results_task2.json")
+print(f"\n✅ Saved to {args.output}")

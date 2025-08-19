@@ -3,8 +3,8 @@ import numpy as np
 import torch
 import matplotlib.pyplot as plt
 
-qwen3_results = json.load(open("/Users/anivenkat/LLMonNode/logits/gemma3_full_results_task2.json"))
-original_dataset = json.load(open("/Users/anivenkat/LLMonNode/logits/original_dataset.json"))
+qwen3_results = json.load(open("/Users/anivenkat/temporalizing_confidence/logits/results/CoT_qwen3_full_results_task2.json"))
+original_dataset = json.load(open("/Users/anivenkat/temporalizing_confidence/logits/results/original_dataset.json"))
 
 # if CoT answers exist
 def remove_CoT_qs():
@@ -65,6 +65,7 @@ def extract_answers(qwen3_results, original_dataset):
 def build_data(answers, correct_answers, qwen3_results):
     data = []
     for q in range(len(qwen3_results)):
+
         acc = 0
         if answers[q] == correct_answers[q]:
             acc = 1
@@ -72,16 +73,20 @@ def build_data(answers, correct_answers, qwen3_results):
         logits = []
         if list(qwen3_results[q][answers[q]]['logits'].keys())[0] == 'True':
             for option in qwen3_results[q]:
-                    for token in qwen3_results[q][option]['token_level_logits']:
-                            for pred_token in token['top_logits']:
-                                if pred_token['token'] == 'True':
-                                    logits.append(pred_token['logit'])
+                    for token in reversed(qwen3_results[q][option]['token_level_logits']):
+                            if token['token'] == 'True' or token['token'] == 'False':
+                                for pred_token in token['top_logits']:
+                                    if pred_token['token'] == 'True':
+                                        logits.append(pred_token['logit'])
+                                break
         else:
             for option in qwen3_results[q]:
-                    for token in qwen3_results[q][option]['token_level_logits']:
-                            for pred_token in token['top_logits']:
-                                if pred_token['token'] == 'False':
-                                    logits.append(pred_token['logit'])
+                    for token in reversed(qwen3_results[q][option]['token_level_logits']):
+                            if token['token'] == 'True' or token['token'] == 'False':
+                                for pred_token in token['top_logits']:
+                                    if pred_token['token'] == 'False':
+                                        logits.append(pred_token['logit'])
+                                break
                 
         
         logits = torch.tensor(logits)
@@ -194,12 +199,12 @@ def plot_ECE(acc_list, overall_acc, ece):
     plt.xlim(0.0, 1.0)
     plt.ylim(0.0, 1.0)
     plt.ylabel('Accuracy')
-    plt.title('Gemma3(12B)_ECE')
+    plt.title('CoT_Qwen3(8B)_ECE')
     plt.legend()
-    plt.savefig('Gemma3(12B)_ECE.png', dpi=300)
+    plt.savefig('CoT_Qwen3(8B)_ECE.png', dpi=300)
 
 def main():
-    qwen3_results, original_dataset = (remove_CoT_qs())
+    #qwen3_results, original_dataset = (remove_CoT_qs())
 
     answers, correct_answers = extract_answers(qwen3_results, original_dataset)
 

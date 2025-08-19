@@ -66,7 +66,7 @@ async def chat_endpoint(query: QueryRequest):
     with torch.inference_mode():
         gen_out = model.generate(
             **inputs,
-            max_new_tokens=512, #increase to 1024 for CoT
+            max_new_tokens=512, #increase for CoT
             do_sample=False,
             use_cache=True,
             return_dict_in_generate=True,
