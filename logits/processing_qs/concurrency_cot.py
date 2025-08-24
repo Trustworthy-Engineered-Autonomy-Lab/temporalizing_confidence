@@ -4,6 +4,7 @@ import asyncio
 import time
 import argparse
 import os
+import re
 
 # === Parse command line arguments ===
 parser = argparse.ArgumentParser(description='Run concurrent CoT evaluation with configurable output path')
@@ -23,6 +24,16 @@ async def call_api_async(client: httpx.AsyncClient, prompt: str):
         return response.json()
     except httpx.RequestError as e:
         print(f"[ERROR] API call failed: {e}")
+        print(f"[ERROR] Error type: {type(e).__name__}")
+        if hasattr(e, 'response'):
+            print(f"[ERROR] Response status: {e.response.status_code}")
+            print(f"[ERROR] Response text: {e.response.text}")
+        return None
+    except Exception as e:
+        print(f"[ERROR] Unexpected error: {e}")
+        print(f"[ERROR] Error type: {type(e).__name__}")
+        import traceback
+        traceback.print_exc()
         return None
 
 async def process_question_async(question_data):
@@ -53,7 +64,7 @@ async def process_question_async(question_data):
         prompt = (
             base_question +
             f"{key}. {choice}\n"
-            "Answer with True or False. Use chain of thought reasoning to justify your answer.\n"
+            "Answer with True or False. Use chain of thought reasoning to get the answer. Your final answer should be in the format of True or False.\n"
         )
         prompts[key] = prompt
 
@@ -82,15 +93,19 @@ async def process_question_async(question_data):
                 entry["response"] = result.get("response", "")
                 entry["token_level_logits"] = result.get("token_level_logits", [])
 
+                # Define normalize function for token cleaning
+                def normalize(tok):
+                    return re.sub(r"^[^A-Za-z]*|[^A-Za-z]*$", "", tok).strip()
+
                 # Extract logits of True / False (from token-level logits)
                 for step in reversed(entry["token_level_logits"]):
-                        tok = step.get("token", "")
-                        if tok in ["True", "False"]:
-                            for top in step.get("top_logits", []):
-                                if top["token"] == tok:
-                                    entry["logits"][tok] = top["logit"]
-                                    break
-                            break
+                    tok = step.get("token", "")
+                    if normalize(tok).upper() in ["TRUE", "FALSE"]:
+                        for top in step.get("top_logits", []):
+                            if normalize(top["token"]).upper() == normalize(tok).upper():
+                                entry["logits"][normalize(tok).upper()] = top["logit"]
+                                break
+                        break
 
             results[key] = entry
 
@@ -106,7 +121,7 @@ async def main():
     full_results = []
     
     # Process questions with controlled concurrency
-    semaphore = asyncio.Semaphore(10)  # num of questions to process at a time
+    semaphore = asyncio.Semaphore(5)  # num of questions to process at a time
     
     async def process_with_semaphore(question_data):
         async with semaphore:
