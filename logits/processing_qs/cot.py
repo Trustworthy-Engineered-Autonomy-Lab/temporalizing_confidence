@@ -31,10 +31,23 @@ def task2_true_false_with_context():
     for key, choice in options.items():
         # Construct prompt
         prompt = (
-            base_question +
-            f"{key}. {choice}\n"
-            "Answer with True or False. Use chain of thought reasoning to justify your answer.\n"
-        )
+    "You are solving a math multiple-choice problem.\n"
+    "You must output two parts:\n\n"
+    "1. Reasoning (Step by Step):\n"
+    "   - Use Chain-of-Thought reasoning with numbered steps.\n"
+    "   - Do NOT try multiple different final answers. Pick one line of reasoning and stick to it.\n"
+    "   - Focus ONLY on evaluating whether the given answer choice is correct.\n"
+    "   - Do NOT attempt to find the correct answer yourself.\n"
+    "   - Do NOT test multiple values. ONLY analyze the given choice.\n\n"
+    "2. Final Answer:\n"
+    "   - State either [True] or [False], depending on whether the given answer choice is correct.\n\n"
+    "---\n\n"
+    "Question:\n" +
+    base_question +
+    f"{key}. {choice}\n\n"
+    "IMPORTANT: Do not solve the problem from scratch. Only evaluate if the given answer choice '{choice}' is correct.\n\n"
+    "Now solve:\n"
+)
 
         print(f"\n>>> Prompt [{key}]:\n{prompt}")
         result = call_api(prompt)
@@ -53,6 +66,9 @@ def task2_true_false_with_context():
 
             # Extract logits of True / False (from token-level logits)
             def normalize(tok):
+               # First remove markdown formatting (bold, italic, etc.)
+               tok = re.sub(r'\*\*|\*|__|_', '', tok)  # Remove **, *, __, _
+               # Then remove non-alphabetic characters from start/end
                return re.sub(r"^[^A-Za-z]*|[^A-Za-z]*$", "", tok).strip()
 
             for step in reversed(entry["token_level_logits"]):

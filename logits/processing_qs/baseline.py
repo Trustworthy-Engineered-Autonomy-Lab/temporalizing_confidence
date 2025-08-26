@@ -2,6 +2,7 @@ import json
 import requests
 import json
 import time
+import re
 # === API endpoint ===
 API_URL = "http://localhost:8000/chat"
 
@@ -44,12 +45,20 @@ def task2_true_false_with_context():
             entry["token_level_logits"] = result.get("token_level_logits", [])
 
             # Extract logits of True / False (from token-level logits)
-            for step in entry["token_level_logits"]:
-                tok = step.get("token", "")
-                if tok in ["True", "False"]:
-                    for top in step.get("top_logits", []):
-                        if top["token"] == tok:
-                            entry["logits"][tok] = top["logit"]
+            def normalize(tok):
+               # First remove markdown formatting (bold, italic, etc.)
+               tok = re.sub(r'\*\*|\*|__|_', '', tok)  # Remove **, *, __, _
+               # Then remove non-alphabetic characters from start/end
+               return re.sub(r"^[^A-Za-z]*|[^A-Za-z]*$", "", tok).strip()
+
+            for step in reversed(entry["token_level_logits"]):
+                    tok = step.get("token", "")
+                    if normalize(tok).upper() in ["TRUE", "FALSE"]:
+                        for top in step.get("top_logits", []):
+                            if normalize(top["token"]).upper() == normalize(tok).upper():
+                                entry["logits"][normalize(tok).upper()] = top["logit"]
+                                break
+                        break
 
         results[key] = entry
         

@@ -66,7 +66,7 @@ async def chat_endpoint(query: QueryRequest):
     with torch.inference_mode():
         gen_out = model.generate(
             **inputs,
-            max_new_tokens=20000, #increase for CoT
+            max_new_tokens=10000, #increase for CoT
             do_sample=False,
             use_cache=True,
             return_dict_in_generate=True,
@@ -93,10 +93,6 @@ async def chat_endpoint(query: QueryRequest):
             "token": token_str,
             "top_logits": top_logits
         })
-    
-    # Only return logits for the last 50 tokens
-    if len(token_level_logits) > 50:
-        token_level_logits = token_level_logits[-50:]
 
     # === Compute logprob ===
     with torch.inference_mode():
