@@ -3,7 +3,7 @@ import numpy as np
 import torch
 import matplotlib.pyplot as plt
 
-qwen3_results = json.load(open("/Users/anivenkat/temporalizing_confidence/logits/results/CoT_qwen3_full_results_task2.json"))
+qwen3_results = json.load(open("/Users/anivenkat/temporalizing_confidence/logits/results/CoT_qwen3.json"))
 original_dataset = json.load(open("/Users/anivenkat/temporalizing_confidence/logits/results/original_dataset.json"))
 
 # if CoT answers exist
@@ -71,7 +71,7 @@ def build_data(answers, correct_answers, qwen3_results):
             acc = 1
         
         logits = []
-        if list(qwen3_results[q][answers[q]]['logits'].keys())[0] == 'True':
+        if list(qwen3_results[q][answers[q]]['logits'].keys())[0] == 'TRUE':
             for option in qwen3_results[q]:
                     for token in reversed(qwen3_results[q][option]['token_level_logits']):
                             if token['token'] == 'True' or token['token'] == 'False':

@@ -10,7 +10,7 @@ torch_dtype = torch.bfloat16 if torch.cuda.is_bf16_supported() else torch.float1
 
 model = AutoModelForCausalLM.from_pretrained(
     model_id,
-    device_map="auto",
+    device_map="balanced",
     torch_dtype=torch_dtype
 ).eval()
 
@@ -66,7 +66,7 @@ async def chat_endpoint(query: QueryRequest):
     with torch.inference_mode():
         gen_out = model.generate(
             **inputs,
-            max_new_tokens=512, #increase for CoT
+            max_new_tokens=10000, #increase for CoT
             do_sample=False,
             use_cache=True,
             return_dict_in_generate=True,
